@@ -45,7 +45,7 @@ app.use("/", proman);
 
 // For Heroku
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "client/build"));
+  app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     console.log(__filename);
     res.sendFile(path.resolve(__dirname + "/client/build/index.html")); // relative path
