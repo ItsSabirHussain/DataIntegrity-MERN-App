@@ -73,11 +73,9 @@ export default function Homenavs() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          ></IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Welcome Here
+            Complex Bid Module Integration
           </Typography>
         </Toolbar>
       </AppBar>
