@@ -21,7 +21,7 @@ router.post("/promanreg", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
+  console.log("There");
   ProMan.findOne({ ID: req.body.ID }).then(proman => {
     if (proman) {
       return res.status(400).json({ ID: "ID already exists" });
@@ -32,6 +32,9 @@ router.post("/promanreg", (req, res) => {
         ID: req.body.ID,
         Key: req.body.Key
       });
+
+      console.log(newProMan);
+
       // Hash key before saving in database
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newProMan.Key, salt, (err, hash) => {

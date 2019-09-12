@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,6 +30,7 @@ import Main from "./main";
 import UploadStatus from "./uploadstatus";
 import UploadDoc from "./uploaddoc";
 import ClientsReq from "./clientsreq";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -112,15 +113,32 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DocDesManDashboard() {
+export default function DocDesManDashboard(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(true);
+  const [docdesman, setDocdesman] = React.useState("");
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("docdesmanTokken")) {
+      setDocdesman(localStorage.getItem("docdesmanID"));
+    } else {
+      props.history.push("/docdesmanlogin");
+    }
+  });
+
+  const onClick = e => {
+    e.preventDefault();
+    localStorage.removeItem("docdesmanTokken");
+    localStorage.removeItem("docdesmanID");
+    props.history.push("/docdesmanlogin");
   };
 
   return (
@@ -150,11 +168,11 @@ export default function DocDesManDashboard() {
             noWrap
             className={classes.title}
           >
-            {"Document Design Manager Dashboard"}
+            {"DDM Dashboard with ID " + docdesman}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
+          <IconButton onClick={onClick} color="inherit">
+            <Badge color="secondary">
+              <ExitToAppIcon fontSize="large" />
             </Badge>
           </IconButton>
         </Toolbar>

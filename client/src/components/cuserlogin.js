@@ -60,8 +60,8 @@ export default function CUserLogin(props) {
     axios
       .post("/cuserlogin", userInfo)
       .then(res => {
-        localStorage.setItem("cuToken", res.data.token);
-        localStorage.setItem("cuID", userInfo.ID);
+        localStorage.setItem("cuserTokken", res.data.token);
+        localStorage.setItem("cuserID", userInfo.ID);
         console.log(res);
         props.history.push("/cuserdashboard");
       })

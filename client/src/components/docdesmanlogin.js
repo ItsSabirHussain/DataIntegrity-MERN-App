@@ -61,8 +61,8 @@ export default function DocDesManLogin(props) {
     axios
       .post("/docdesmanlogin", adminInfo)
       .then(res => {
-        localStorage.setItem("ddmToken", res.data.token);
-        localStorage.setItem("ddmID", adminInfo.ID);
+        localStorage.setItem("docdesmanTokken", res.data.token);
+        localStorage.setItem("docdesmanID", adminInfo.ID);
         console.log(res);
         props.history.push("/docdesmandashboard");
       })

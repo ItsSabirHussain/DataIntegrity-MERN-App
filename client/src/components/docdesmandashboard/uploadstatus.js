@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -128,7 +128,7 @@ const useStyles3 = makeStyles(theme => ({
   }
 }));
 
-export default function UploadStatus() {
+export default function UploadStatus(props) {
   const classes = useStyles();
   const classes2 = useStyles2();
   const classes3 = useStyles3();

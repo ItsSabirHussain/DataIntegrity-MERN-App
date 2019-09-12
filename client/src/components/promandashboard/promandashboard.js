@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,6 +30,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import UploadProData from "./uploadprodata";
 import CostOfPro from "./costofpro";
 import ClientsReq from "./clientsreq";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -116,13 +117,28 @@ export default function ProManDashboard(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(true);
+  const [proman, setProman] = React.useState("");
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    if (localStorage.getItem("promanTokken")) {
+      setProman(localStorage.getItem("promanID"));
+    } else {
+      props.history.push("/promanlogin");
+    }
+  });
 
+  const onClick = e => {
+    e.preventDefault();
+    localStorage.removeItem("promanTokken");
+    localStorage.removeItem("propmanID");
+    props.history.push("/promanlogin");
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -150,11 +166,11 @@ export default function ProManDashboard(props) {
             noWrap
             className={classes.title}
           >
-            {"Project Mananger Dashboard"}
+            {"PM Dashboard with ID" + proman}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
+          <IconButton onClick={onClick} color="inherit">
+            <Badge color="secondary">
+              <ExitToAppIcon fontSize="large" />
             </Badge>
           </IconButton>
         </Toolbar>

@@ -60,14 +60,13 @@ export default function ProManReg(props) {
   });
 
   const onClick = e => {
+    e.preventDefault();
     axios
       .post("/promanreg", adminInfo)
       .then(res => {
         props.history.push("/promanlogin");
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 
   return (

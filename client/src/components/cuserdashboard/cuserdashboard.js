@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -31,6 +31,7 @@ import ProBidStatus from "./probidstatus";
 import UploadBid from "./uploadbid";
 import Rate from "./rate";
 import UploadProReq from "./uploadproreq";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -113,15 +114,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CUserDashboard() {
+export default function CUserDashboard(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(true);
+  const [cuser, setCuser] = React.useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  useEffect(() => {
+    if (localStorage.getItem("cuserTokken")) {
+      setCuser(localStorage.getItem("cuserID"));
+    } else {
+      props.history.push("/cuserlogin");
+    }
+  });
+
+  const onClick = e => {
+    e.preventDefault();
+    localStorage.removeItem("cuserTokken");
+    localStorage.removeItem("cuserID");
+    props.history.push("/cuserlogin");
   };
 
   return (
@@ -151,11 +168,11 @@ export default function CUserDashboard() {
             noWrap
             className={classes.title}
           >
-            {"Client User Dashboard"}
+            {"Client Dashboard with ID " + cuser}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
+          <IconButton onClick={onClick} color="inherit">
+            <Badge color="secondary">
+              <ExitToAppIcon />
             </Badge>
           </IconButton>
         </Toolbar>

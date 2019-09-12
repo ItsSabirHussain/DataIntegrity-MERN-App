@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -27,6 +27,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import MenuItem from "@material-ui/core/MenuItem";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -109,15 +110,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CEODashboard() {
+export default function CEODashboard(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(true);
+  const [ceo, setCeo] = React.useState("");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  useEffect(() => {
+    if (localStorage.getItem("ceoTokken")) {
+      setCeo(localStorage.getItem("ceoID"));
+    } else {
+      props.history.push("/ceologin");
+    }
+  });
+
+  const onClick = e => {
+    e.preventDefault();
+    localStorage.removeItem("ceoToken");
+    localStorage.removeItem("ceoID");
+    props.history.push("/ceologin");
   };
 
   return (
@@ -147,11 +163,11 @@ export default function CEODashboard() {
             noWrap
             className={classes.title}
           >
-            {"CEO Dashboard"}
+            {"CEO Dashboard wit ID " + ceo}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
+          <IconButton onClick={onClick} color="inherit">
+            <Badge color="secondary">
+              <ExitToAppIcon fontSize="large" />
             </Badge>
           </IconButton>
         </Toolbar>

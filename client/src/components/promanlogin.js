@@ -61,9 +61,8 @@ export default function ProManLogin(props) {
     axios
       .post("/promanlogin", adminInfo)
       .then(res => {
-        localStorage.setItem("pmToken", res.data.token);
-        localStorage.setItem("pmID", adminInfo.ID);
-        console.log(res);
+        localStorage.setItem("promanTokken", res.data.token);
+        localStorage.setItem("promanID", adminInfo.ID);
         props.history.push("/promandashboard");
       })
       .catch(error => console.log(error));
