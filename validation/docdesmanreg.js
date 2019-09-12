@@ -1,6 +1,7 @@
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 module.exports = function validateDocDesManRegistration(data) {
+  console.log(data.Key);
   let errors = {};
   // Convert empty fields to an empty string so we can use validator functions
   data.ID = !isEmpty(data.ID) ? data.ID : "";

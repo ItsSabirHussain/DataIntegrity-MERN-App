@@ -15,12 +15,6 @@ const DocDesMan = require("../models/docdesman");
 // @desc Register user
 // @access Public
 router.post("/docdesmanreg", (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateDocDesManRegistration(req.body);
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
   DocDesMan.findOne({ ID: req.body.ID }).then(user => {
     if (user) {
       return res.status(400).json({ ID: "ID already exists" });
@@ -40,7 +34,7 @@ router.post("/docdesmanreg", (req, res) => {
           newDocDesMan
             .save()
             .then(user => res.json(user))
-            .catch(err => console.log(err));
+            .catch();
         });
       });
     }

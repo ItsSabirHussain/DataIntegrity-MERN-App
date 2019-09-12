@@ -23,6 +23,7 @@ router.post("/ceoreg", (req, res) => {
   }
 
   CEO.findOne({ ID: req.body.ID }).then(ceo => {
+    console.log(ceo);
     if (ceo) {
       return res.status(400).json({ ID: "ID already exists" });
     } else {
@@ -34,8 +35,12 @@ router.post("/ceoreg", (req, res) => {
       });
       // Hash key before saving in database
       bcrypt.genSalt(10, (err, salt) => {
+        console.log(req.body.Key);
+
         bcrypt.hash(newCEO.Key, salt, (err, hash) => {
           console.log(err);
+          console.log(req.body.Key);
+
           if (err) throw err;
           newCEO.Key = hash;
           newCEO
