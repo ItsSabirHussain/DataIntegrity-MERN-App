@@ -21,7 +21,6 @@ router.post("/promanreg", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  console.log("There");
   ProMan.findOne({ ID: req.body.ID }).then(proman => {
     if (proman) {
       return res.status(400).json({ ID: "ID already exists" });
