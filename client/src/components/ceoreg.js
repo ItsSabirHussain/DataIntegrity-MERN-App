@@ -61,7 +61,7 @@ export default function CEOReg(props) {
 
   const onClick = e => {
     axios
-      .post("http://localhost:5000/ceoreg", adminInfo)
+      .post("/ceoreg", adminInfo)
       .then(res => {
         props.history.push("/ceologin");
       })

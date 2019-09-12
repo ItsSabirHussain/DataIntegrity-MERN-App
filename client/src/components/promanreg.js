@@ -61,7 +61,7 @@ export default function ProManReg(props) {
 
   const onClick = e => {
     axios
-      .post("http://localhost:5000/promanreg", adminInfo)
+      .post("/promanreg", adminInfo)
       .then(res => {
         props.history.push("/promanlogin");
       })

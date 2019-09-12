@@ -62,7 +62,7 @@ export default function CUserReg(props) {
   const onClick = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/cuserreg", userInfo)
+      .post("/cuserreg", userInfo)
       .then(res => {
         props.history.push("/cuserlogin");
       })

@@ -59,7 +59,7 @@ export default function DocDesManLogin(props) {
   const onClick = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/docdesmanlogin", adminInfo)
+      .post("/docdesmanlogin", adminInfo)
       .then(res => {
         localStorage.setItem("ddmToken", res.data.token);
         localStorage.setItem("ddmID", adminInfo.ID);

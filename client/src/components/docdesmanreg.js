@@ -61,7 +61,7 @@ export default function DocDesManReg(props) {
 
   const onClick = e => {
     axios
-      .post("http://localhost:5000/docdesmanreg", adminInfo)
+      .post("/docdesmanreg", adminInfo)
       .then(res => {
         props.history.push("/docdesmanlogin");
       })

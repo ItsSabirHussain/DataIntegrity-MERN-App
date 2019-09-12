@@ -59,7 +59,7 @@ export default function ProManLogin(props) {
   const onClick = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/promanlogin", adminInfo)
+      .post("/promanlogin", adminInfo)
       .then(res => {
         localStorage.setItem("pmToken", res.data.token);
         localStorage.setItem("pmID", adminInfo.ID);

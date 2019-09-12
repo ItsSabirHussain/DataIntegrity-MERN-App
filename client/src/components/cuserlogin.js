@@ -58,7 +58,7 @@ export default function CUserLogin(props) {
   const onClick = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/cuserlogin", userInfo)
+      .post("/cuserlogin", userInfo)
       .then(res => {
         localStorage.setItem("cuToken", res.data.token);
         localStorage.setItem("cuID", userInfo.ID);
