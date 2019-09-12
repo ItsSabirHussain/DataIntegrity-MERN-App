@@ -59,7 +59,7 @@ export default function CEOLogin(props) {
   const onClick = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/ceologin", adminInfo)
+      .post("/ceologin", adminInfo)
       .then(res => {
         localStorage.setItem("ceoToken", res.data.token);
         localStorage.setItem("ceoID", adminInfo.ID);
