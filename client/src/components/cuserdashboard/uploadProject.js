@@ -128,7 +128,7 @@ const useStyles3 = makeStyles(theme => ({
   }
 }));
 
-export default function UploadBid() {
+export default function UploadProject() {
   const classes = useStyles();
   const classes2 = useStyles2();
   const classes3 = useStyles3();
@@ -138,33 +138,7 @@ export default function UploadBid() {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3}>
-          {/* Chart */}
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>
-              <Container
-                component="main"
-                className={classes.main}
-                maxWidth="sm"
-              >
-                <CardContent>
-                  <Typography
-                    className={classes2.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Upload BID
-                    <br />
-                    {'"Welcome Here"'}
-                  </Typography>
-                </CardContent>
-                <CardActions></CardActions>
-              </Container>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
+      <UploadProject />
       <Copyright />
     </main>
   );

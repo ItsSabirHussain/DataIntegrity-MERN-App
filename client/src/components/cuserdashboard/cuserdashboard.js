@@ -25,14 +25,14 @@ import NotificationImportantIcon from "@material-ui/icons/NotificationImportant"
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
-import MenuItem from "@material-ui/core/MenuItem";
 import Main from "./cusermain";
 import ProBidStatus from "./probidstatus";
-import UploadBid from "./uploadbid";
+import UploadProject from "./uploadProject";
 import Rate from "./rate";
 import UploadProReq from "./uploadproreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { Jumbotron } from "react-bootstrap";
+import PublishIcon from "@material-ui/icons/Publish";
+import UploadForm from "./UploadForm";
 
 const drawerWidth = 240;
 
@@ -203,12 +203,16 @@ export default function CUserDashboard(props) {
               </ListItemIcon>
               <ListItemText>Dashboard</ListItemText>
             </ListItem>
-            <ListItem button component={Link} to="/cuserdashboard/uploadbid">
+            <ListItem
+              button
+              component={Link}
+              to="/cuserdashboard/uploadproject"
+            >
               <ListItemIcon>
-                <NotificationImportantIcon fontSize="large" />
+                <PublishIcon fontSize="large" />
               </ListItemIcon>
 
-              <ListItemText primary="Upload BID" />
+              <ListItemText primary="Upload Project" />
             </ListItem>
             <ListItem button component={Link} to="/cuserdashboard/probidstatus">
               <ListItemIcon>
@@ -235,7 +239,11 @@ export default function CUserDashboard(props) {
 
       <Switch>
         <Route exact path="/cuserdashboard" component={Main} />
-        <Route exact path="/cuserdashboard/uploadbid" component={UploadBid} />
+        <Route
+          exact
+          path="/cuserdashboard/uploadproject"
+          component={UploadForm}
+        />
         <Route
           exact
           path="/cuserdashboard/probidstatus"

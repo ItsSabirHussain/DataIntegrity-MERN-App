@@ -43,7 +43,7 @@ export const Jumbotron = props => (
           style={{
             color: "Black",
             fontWeight: "bold",
-            fontSize: "50px"
+            fontSize: "30px"
           }}
         >
           Complex Bid Module Integration
