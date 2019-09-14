@@ -32,6 +32,7 @@ import UploadBid from "./uploadbid";
 import Rate from "./rate";
 import UploadProReq from "./uploadproreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Jumbotron } from "react-bootstrap";
 
 const drawerWidth = 240;
 

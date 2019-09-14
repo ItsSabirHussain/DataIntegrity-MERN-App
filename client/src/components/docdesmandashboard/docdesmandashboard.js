@@ -31,6 +31,7 @@ import UploadStatus from "./uploadstatus";
 import UploadDoc from "./uploaddoc";
 import ClientsReq from "./clientsreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Jumbotron } from "react-bootstrap";
 
 const drawerWidth = 240;
 
@@ -143,6 +144,7 @@ export default function DocDesManDashboard(props) {
 
   return (
     <div className={classes.root}>
+      <Jumbotron />
       <CssBaseline />
       <AppBar
         position="absolute"

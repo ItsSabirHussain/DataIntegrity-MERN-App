@@ -28,6 +28,7 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import MenuItem from "@material-ui/core/MenuItem";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Jumbotron } from "react-bootstrap";
 
 const drawerWidth = 240;
 
@@ -139,6 +140,7 @@ export default function CEODashboard(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <Jumbotron />
       <AppBar
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}

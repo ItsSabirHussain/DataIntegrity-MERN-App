@@ -31,6 +31,7 @@ import UploadProData from "./uploadprodata";
 import CostOfPro from "./costofpro";
 import ClientsReq from "./clientsreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Jumbotron } from "react-bootstrap";
 
 const drawerWidth = 240;
 
@@ -141,6 +142,7 @@ export default function ProManDashboard(props) {
   };
   return (
     <div className={classes.root}>
+      <Jumbotron />
       <CssBaseline />
       <AppBar
         position="absolute"
