@@ -129,6 +129,7 @@ export default function UploadForm() {
               variant="contained"
               color="default"
               className={uButton.button}
+              type
             >
               Upload
               <CloudUploadIcon className={uButton.rightIcon} />
