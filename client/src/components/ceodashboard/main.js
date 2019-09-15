@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Jumbotron } from "react-bootstrap";
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -103,6 +105,26 @@ const useStyles = makeStyles(theme => ({
 export default function CEOMain() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [ceo, setCeo] = React.useState({
+    FullName: "",
+    OfficeID: ""
+  });
+  useEffect(() => {
+    if (ceo.FullName === "") {
+      axios
+        .post("/getceo", { ID: localStorage.getItem("ceoID") })
+        .then(res => {
+          console.log(res);
+          setCeo({
+            OfficeID: res.data.OfficeID,
+            FullName: res.data.FullName
+          });
+          console.log(res);
+        })
+        .catch(error => console.log(error));
+    }
+  });
+
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
@@ -110,7 +132,17 @@ export default function CEOMain() {
         <Grid container spacing={3}>
           {/* User Details */}
           <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>CEO Details</Paper>
+            <div>
+              <Jumbotron>
+                <h1 className="display-6">Name : {ceo.FullName}</h1>
+                <p className="lead">{ceo.OfficeID}</p>
+                <hr className="my-2" />
+                <p></p>
+                <p className="lead">
+                  <Button color="primary">Notifications</Button>
+                </p>
+              </Jumbotron>
+            </div>
           </Grid>
         </Grid>
       </Container>

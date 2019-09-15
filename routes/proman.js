@@ -98,4 +98,16 @@ router.post("/promanlogin", (req, res) => {
   });
 });
 
+router.post("/getproman", (req, res) => {
+  const ID = req.body.ID;
+  console.log(ID);
+
+  ProMan.findOne({ ID: req.body.ID }).then(user => {
+    if (!user) {
+      return res.status(404).json({ IDNotFound: "ID not found" });
+    }
+    return res.json(user);
+  });
+});
+
 module.exports = router;

@@ -142,7 +142,6 @@ export default function ProManDashboard(props) {
   };
   return (
     <div className={classes.root}>
-      <Jumbotron />
       <CssBaseline />
       <AppBar
         position="absolute"

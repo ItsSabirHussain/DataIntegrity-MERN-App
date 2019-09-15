@@ -95,4 +95,16 @@ router.post("/cuserlogin", (req, res) => {
   });
 });
 
+router.post("/getcuser", (req, res) => {
+  const ID = req.body.ID;
+  console.log(ID);
+
+  CUser.findOne({ ID: req.body.ID }).then(user => {
+    if (!user) {
+      return res.status(404).json({ IDNotFound: "ID not found" });
+    }
+    return res.json(user);
+  });
+});
+
 module.exports = router;

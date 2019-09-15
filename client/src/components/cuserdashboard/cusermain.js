@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Jumbotron } from "react-bootstrap";
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -18,6 +20,18 @@ function Copyright() {
     </Typography>
   );
 }
+const buttonStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1)
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1)
+  },
+  center: {
+    marginLeft: "auto",
+    marginRight: "auto"
+  }
+}));
 
 const drawerWidth = 240;
 
@@ -100,9 +114,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Main() {
+export default function Main(props) {
+  const bStyle = buttonStyles();
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [cuser, setCuser] = React.useState({
+    FullName: "",
+    Email: ""
+  });
+
+  useEffect(() => {
+    if (cuser.FullName === "") {
+      axios
+        .post("/getcuser", { ID: localStorage.getItem("cuserID") })
+        .then(res => {
+          console.log(res);
+          setCuser({
+            Email: res.data.Email,
+            FullName: res.data.FullName
+          });
+          console.log(res);
+        })
+        .catch(error => console.log(error));
+    }
+  });
+
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
@@ -110,7 +145,17 @@ export default function Main() {
         <Grid container spacing={3}>
           {/* User Details */}
           <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>User Details</Paper>
+            <div>
+              <Jumbotron>
+                <h1 className="display-6">Name : {cuser.FullName}</h1>
+                <p className="lead">{cuser.Email}</p>
+                <hr className="my-2" />
+                <p></p>
+                <p className="lead">
+                  <Button color="primary">Notifications</Button>
+                </p>
+              </Jumbotron>
+            </div>
           </Grid>
         </Grid>
       </Container>

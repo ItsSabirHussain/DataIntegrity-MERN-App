@@ -101,4 +101,16 @@ router.post("/ceologin", (req, res) => {
   });
 });
 
+router.post("/getceo", (req, res) => {
+  const ID = req.body.ID;
+  console.log(ID);
+
+  CEO.findOne({ ID: req.body.ID }).then(user => {
+    if (!user) {
+      return res.status(404).json({ IDNotFound: "ID not found" });
+    }
+    return res.json(user);
+  });
+});
+
 module.exports = router;

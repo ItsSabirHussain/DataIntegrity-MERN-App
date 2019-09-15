@@ -144,7 +144,6 @@ export default function DocDesManDashboard(props) {
 
   return (
     <div className={classes.root}>
-      <Jumbotron />
       <CssBaseline />
       <AppBar
         position="absolute"

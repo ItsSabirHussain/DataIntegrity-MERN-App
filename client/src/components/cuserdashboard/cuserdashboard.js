@@ -193,11 +193,7 @@ export default function CUserDashboard(props) {
         <Divider />
         <List>
           <div>
-            <ListItem
-              button
-              component={Link}
-              to="/cuserdashboard/cuserdashboard"
-            >
+            <ListItem button component={Link} to="/cuserdashboard">
               <ListItemIcon>
                 <DashboardIcon fontSize="large" />
               </ListItemIcon>

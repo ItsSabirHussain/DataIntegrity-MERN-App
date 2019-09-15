@@ -29,6 +29,10 @@ import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import MenuItem from "@material-ui/core/MenuItem";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Jumbotron } from "react-bootstrap";
+import Main from "./main";
+import ModifyProjectData from "./mondifyprojectdata";
+import ProjectAnalysis from "./projectanalysis";
+import AddBid from "./addbid";
 
 const drawerWidth = 240;
 
@@ -140,7 +144,6 @@ export default function CEODashboard(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Jumbotron />
       <AppBar
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
@@ -187,12 +190,60 @@ export default function CEODashboard(props) {
           </IconButton>
         </div>
         <Divider />
-        <List></List>
+        <List>
+          <div>
+            <ListItem button component={Link} to="/ceodashboard">
+              <ListItemIcon>
+                <DashboardIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to="/ceodashboard/notifications">
+              <ListItemIcon>
+                <PolicyIcon fontSize="large" />
+              </ListItemIcon>
+
+              <ListItemText primary="Notifications" />
+            </ListItem>
+            <ListItem button component={Link} to="/ceodashboard/modifyproject">
+              <ListItemIcon>
+                <PeopleIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Modify Project" />
+            </ListItem>
+            <ListItem
+              button
+              component={Link}
+              to="/ceodashboard/projectanalysis"
+            >
+              <ListItemIcon>
+                <PermIdentityIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Project Analysis" />
+            </ListItem>
+            <ListItem button component={Link} to="/ceodashboard/addbit">
+              <ListItemIcon>
+                <HighlightOffIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Add Bid" />
+            </ListItem>
+          </div>
+        </List>
         <Divider />
       </Drawer>
-
       <Switch>
-        <Route exact path="/ceodashboard" component={CEOMain} />
+        <Route exact path="/ceodashboard" component={Main} />
+        <Route
+          exact
+          path="/ceodashboard/modifyproject"
+          component={ModifyProjectData}
+        />
+        <Route
+          exact
+          path="/ceodashboard/projectanalysis"
+          component={ProjectAnalysis}
+        />
+        <Route exact path="/ceodashboard/addbid" component={AddBid} />
       </Switch>
     </div>
   );

@@ -61,7 +61,7 @@ export default function CEOLogin(props) {
     axios
       .post("/ceologin", adminInfo)
       .then(res => {
-        localStorage.setItem("ceoToken", res.data.token);
+        localStorage.setItem("ceoTokken", res.data.token);
         localStorage.setItem("ceoID", adminInfo.ID);
         console.log(res);
         props.history.push("/ceodashboard");
