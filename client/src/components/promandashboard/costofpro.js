@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import { CardContent, CardActions, Button } from "@material-ui/core";
+import ProjectCostForm from "./projectcostform";
 
 function Copyright() {
   return (
@@ -142,28 +143,15 @@ export default function CostOfPro() {
         <Grid container spacing={3}>
           {/* Chart */}
           <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>
-              <Container
-                component="main"
-                className={classes.main}
-                maxWidth="sm"
-              >
-                <CardContent>
-                  <Typography
-                    className={classes2.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Put cost of project
-                  </Typography>
-                </CardContent>
-                <CardActions></CardActions>
-              </Container>
-            </Paper>
+            <Container component="main" className={classes.main} maxWidth="sm">
+              <CardContent>
+                <ProjectCostForm />
+              </CardContent>
+              <CardActions></CardActions>
+            </Container>
           </Grid>
         </Grid>
       </Container>
-      <Copyright />
     </main>
   );
 }

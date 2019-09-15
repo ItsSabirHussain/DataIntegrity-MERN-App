@@ -10,6 +10,8 @@ const validateProManLogin = require("../validation/promanlogin");
 
 // Load User model
 const ProMan = require("../models/proman");
+const ProjectAnalysis = require("../models/projectanalysis");
+const ProCost = require("../models/procost");
 
 // @route POST /adminregisteration
 // @desc Register user
@@ -103,6 +105,46 @@ router.post("/getproman", (req, res) => {
   console.log(ID);
 
   ProMan.findOne({ ID: req.body.ID }).then(user => {
+    if (!user) {
+      return res.status(404).json({ IDNotFound: "ID not found" });
+    }
+    return res.json(user);
+  });
+});
+
+router.post("/uploadprodata", (req, res) => {
+  ProjectAnalysis.findOne({ ID: req.body.ID }).then(proman => {
+    if (proman) {
+      return res.status(400).json({ ID: "ID already exists" });
+    } else {
+      const newData = new ProjectAnalysis({
+        ProjectName: req.body.ProjectName,
+        ID: req.body.ID,
+        Content: req.body.Suggetion
+      });
+      newData.save();
+    }
+  });
+});
+
+router.post("/uploadprocost", (req, res) => {
+  ProCost.findOne({ ID: req.body.ID }).then(proman => {
+    if (proman) {
+      return res.status(400).json({ ID: "ID already exists" });
+    } else {
+      const newData = new ProCost({
+        ProjectName: req.body.ProjectName,
+        ID: req.body.ID,
+        Cost: req.body.Suggetion
+      });
+      newData.save();
+    }
+  });
+});
+
+router.post("/getcreq", (req, res) => {
+  console.log("THre");
+  ProMan.find({}, { _id: false }).then(user => {
     if (!user) {
       return res.status(404).json({ IDNotFound: "ID not found" });
     }

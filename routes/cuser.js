@@ -10,6 +10,7 @@ const validateCUserLogin = require("../validation/cuserlogin");
 
 // Load User model
 const CUser = require("../models/cuser");
+const Notifications = require("../models/notifications");
 
 // @route POST /userregistration
 // @desc Register user
@@ -88,6 +89,11 @@ router.post("/cuserlogin", (req, res) => {
             });
           }
         );
+        const newNotification = new Notifications({
+          ID: req.body.ID,
+          Role: "CUser",
+          Content: req.body.ID + " is loged in."
+        }).save();
       } else {
         return res.status(400).json({ keyincorrect: "Key incorrect" });
       }
