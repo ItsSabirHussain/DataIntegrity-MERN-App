@@ -137,7 +137,7 @@ export default function Main() {
             <div>
               <Jumbotron>
                 <h1 className="display-6">Name : {proman.FullName}</h1>
-                <p className="lead">{proman.OfficeID}</p>
+                <p className="lead">Office ID : {proman.OfficeID}</p>
                 <hr className="my-2" />
                 <p></p>
                 <p className="lead"></p>

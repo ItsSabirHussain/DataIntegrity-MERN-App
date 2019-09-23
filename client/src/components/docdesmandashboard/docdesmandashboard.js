@@ -32,6 +32,8 @@ import UploadDoc from "./uploaddoc";
 import ClientsReq from "./clientsreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Jumbotron } from "react-bootstrap";
+import Notifications from "../ceodashboard/notifications";
+import Projects from "./projectreq";
 
 const drawerWidth = 240;
 
@@ -202,39 +204,23 @@ export default function DocDesManDashboard(props) {
             <ListItem
               button
               component={Link}
-              to="/docdesmandashboard/uploaddoc"
+              to="/docdesmandashboard/notifications"
             >
               <ListItemIcon>
                 <NotificationImportantIcon fontSize="large" />
               </ListItemIcon>
 
-              <ListItemText primary="Upload Documents" />
+              <ListItemText primary="Notifications" />
             </ListItem>
             <ListItem
               button
               component={Link}
-              to="/docdesmandashboard/uploadstatus"
+              to="/docdesmandashboard/projectreq"
             >
               <ListItemIcon>
                 <PeopleIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Upload Status" />
-            </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to="/docdesmandashboard/clientreq"
-            >
-              <ListItemIcon>
-                <PermIdentityIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Upload Pro. Req." />
-            </ListItem>
-            <ListItem button component={Link} to="/cuserdashboard/rate">
-              <ListItemIcon>
-                <HighlightOffIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Rate" />
+              <ListItemText primary="Projects Data" />
             </ListItem>
           </div>
         </List>
@@ -245,18 +231,13 @@ export default function DocDesManDashboard(props) {
         <Route exact path="/docdesmandashboard" component={Main} />
         <Route
           exact
-          path="/docdesmandashboard/uploadstatus"
-          component={UploadStatus}
+          path="/docdesmandashboard/notifications"
+          component={Notifications}
         />
         <Route
           exact
-          path="/docdesmandashboard/uploaddoc"
-          component={UploadDoc}
-        />
-        <Route
-          exact
-          path="/docdesmandashboard/clientreq"
-          component={ClientsReq}
+          path="/docdesmandashboard/projectreq"
+          component={Projects}
         />
       </Switch>
     </div>

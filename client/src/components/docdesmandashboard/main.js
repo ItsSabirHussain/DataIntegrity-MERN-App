@@ -14,7 +14,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      Your Website and Your Name Here.
+      Complex Bid Module Integration {""}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -117,7 +117,7 @@ export default function Main() {
         .then(res => {
           console.log(res);
           setDocdesman({
-            OfficeID: res.data.Email,
+            OfficeID: res.data.OfficeID,
             FullName: res.data.FullName
           });
           console.log(res);
@@ -133,19 +133,15 @@ export default function Main() {
         <Grid container spacing={3}>
           {/* User Details */}
           <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>
-              <div>
-                <Jumbotron>
-                  <h1 className="display-=6">Name : {docdesman.FullName}</h1>
-                  <p className="lead">{docdesman.OfficeID}</p>
-                  <hr className="my-2" />
-                  <p></p>
-                  <p className="lead">
-                    <Button color="primary">Notifications</Button>
-                  </p>
-                </Jumbotron>
-              </div>
-            </Paper>
+            <div>
+              <Jumbotron>
+                <h1 className="display-=6">Name : {docdesman.FullName}</h1>
+                <p className="lead">OfficeID : {docdesman.OfficeID}</p>
+                <hr className="my-2" />
+                <p></p>
+                <p className="lead"></p>
+              </Jumbotron>
+            </div>
           </Grid>
         </Grid>
       </Container>

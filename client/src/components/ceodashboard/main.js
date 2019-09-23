@@ -134,12 +134,10 @@ export default function CEOMain() {
             <div>
               <Jumbotron>
                 <h1 className="display-6">Name : {ceo.FullName}</h1>
-                <p className="lead">{ceo.OfficeID}</p>
+                <p className="lead">Office ID :{ceo.OfficeID}</p>
                 <hr className="my-2" />
                 <p></p>
-                <p className="lead">
-                  <Button color="primary">Notifications</Button>
-                </p>
+                <p className="lead"></p>
               </Jumbotron>
             </div>
           </Grid>

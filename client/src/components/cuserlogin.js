@@ -97,7 +97,7 @@ export default function CUserLogin(props) {
             fullWidth
             name="Key"
             label="Key"
-            type="Key"
+            type="Password"
             id="Key"
             autoComplete="current-Key"
             onChange={e => setUserInfo({ ...userInfo, Key: e.target.value })}
@@ -116,15 +116,7 @@ export default function CUserLogin(props) {
             Sign In
           </Button>
           <Grid container>
-            <Grid item>
-              <Link
-                to="/cuserreg"
-                variant="body2"
-                style={{ textDecoration: "none" }}
-              >
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+            <Grid item></Grid>
           </Grid>
         </form>
       </div>

@@ -8,6 +8,7 @@ const CUser = require("../models/cuser");
 const Notifications = require("../models/notifications");
 const Modifications = require("../models/modications");
 const ProjectInfo = require("../models/projectinfo");
+const BidStatus = require("../models/bidstatus");
 
 router.post("/cuserreg", (req, res) => {
   CUser.findOne({ ID: req.body.ID }).then(user => {
@@ -153,5 +154,26 @@ router.post("/addnotification", (req, res) => {
     });
 });
 
-router.post("/getbidstatus", (req, res) => {});
+router.post("/getbidstatus", (req, res) => {
+  BidStatus.find()
+    .then(projects => {
+      console.log("There");
+      if (projects) {
+        return res.json(projects);
+      } else {
+        return res.json([
+          {
+            CompanyName: "None",
+            ProjectName: "None",
+            Bid: "None",
+            Reason: "None"
+          }
+        ]);
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
 module.exports = router;

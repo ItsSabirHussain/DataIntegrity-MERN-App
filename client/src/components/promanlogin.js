@@ -19,7 +19,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link to="/" style={{ textDecoration: "none" }}>
-        The website{" "}
+        Complex Bi Module Integration{" "}
       </Link>
       {new Date().getFullYear()}
       {"."}
@@ -98,7 +98,7 @@ export default function ProManLogin(props) {
             fullWidth
             name="Key"
             label="Key"
-            type="Key"
+            type="Password"
             id="Key"
             autoComplete="current-Key"
             onChange={e => setAdminInfo({ ...adminInfo, Key: e.target.value })}
@@ -117,15 +117,7 @@ export default function ProManLogin(props) {
             Sign In
           </Button>
           <Grid container>
-            <Grid item>
-              <Link
-                to="/promanreg"
-                variant="body2"
-                style={{ textDecoration: "none" }}
-              >
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+            <Grid item></Grid>
           </Grid>
         </form>
       </div>

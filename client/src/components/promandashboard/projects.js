@@ -148,7 +148,7 @@ export default function Projects(props) {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <div>
-              <h3>Notifications</h3>
+              <h3>Projects </h3>
               <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                   <tr>

@@ -192,7 +192,7 @@ export default function AllPlacesList(props) {
                 <thead>
                   <tr>
                     <th>Project Name</th>
-                    <th>Project Name</th>
+                    <th>CompanyName Name</th>
                     <th>Bid</th>
                     <th>Reason</th>
                     <th>Action</th>

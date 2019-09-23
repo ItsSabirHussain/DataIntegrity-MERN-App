@@ -34,6 +34,7 @@ import ModifyProjectData from "./mondifyprojectdata";
 import ProjectAnalysis from "./projectanalysis";
 import AddBid from "./addbid";
 import Notifications from "./notifications";
+import ModifyProject from "./modifyproject";
 
 const drawerWidth = 240;
 
@@ -206,12 +207,7 @@ export default function CEODashboard(props) {
 
               <ListItemText primary="Notifications" />
             </ListItem>
-            <ListItem button component={Link} to="/ceodashboard/modifyproject">
-              <ListItemIcon>
-                <PeopleIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Modify Project" />
-            </ListItem>
+
             <ListItem
               button
               component={Link}
@@ -221,12 +217,6 @@ export default function CEODashboard(props) {
                 <PermIdentityIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText primary="Project Analysis" />
-            </ListItem>
-            <ListItem button component={Link} to="/ceodashboard/addbit">
-              <ListItemIcon>
-                <HighlightOffIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Add Bid" />
             </ListItem>
           </div>
         </List>
@@ -250,6 +240,7 @@ export default function CEODashboard(props) {
           component={Notifications}
         />
         <Route exact path="/ceodashboard/addbid" component={AddBid} />
+        <Route exact path="/ceodashboard/modify" component={ModifyProject} />
       </Switch>
     </div>
   );

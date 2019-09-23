@@ -4,8 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-
 import axios from "axios";
 
 function Copyright() {
@@ -102,7 +100,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Notifications(props) {
+export default function Projects(props) {
   function AllPlacesList(p) {
     return p.map(function(cdata, i) {
       return <Data data={cdata} key={i} />;
@@ -113,52 +111,18 @@ export default function Notifications(props) {
       <td>{p.data.ID}</td>
       <td>{p.data.ProjectName}</td>
       <td>{p.data.CompanyName}</td>
-      <td>{p.data.Suggestion}</td>
-      <td>{p.data.Cost}</td>
-      <td>{p.data.Budget}</td>
-      <td>{p.data.RiskFactor}</td>
+      <td>{p.data.ProjectDescription}</td>
       <td>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={e => {
-            localStorage.setItem("e_id", p.data._id);
-            props.history.push("/ceodashboard/modify");
-          }}
-        >
-          Accept
-        </Button>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={e => {
-            e.preventDefault();
-            axios
-              .post("/updatebidstatus", {
-                _id: p.data._id,
-                ProjectName: p.data.ProjectName,
-                CompanyName: p.data.CompanyName,
-                ID: p.data.ID,
-                Bid: p.data.Cost,
-                Reason: prompt("Enter the reacson of rejection"),
-                Status: "Rejected"
-              })
-              .then(res => {
-                alert("Action completed.");
-              })
-              .catch(error => {
-                alert(error);
-              });
-            props.history.push("/ceodashboard");
-          }}
-        >
-          Rejected
-        </Button>
+        {p.data.City +
+          " , " +
+          p.data.State +
+          " , " +
+          p.data.Country +
+          " " +
+          p.data.Zip}
       </td>
+      <td>{p.data.Budget}</td>
+      <td>{p.data.Budget}</td>
     </tr>
   );
 
@@ -167,11 +131,14 @@ export default function Notifications(props) {
   useEffect(() => {
     if (AllStatus.length < 1) {
       axios
-        .post("/getanalysisdata", {})
+        .post("/getprojects", {})
         .then(res => {
           setAllStatus(res.data);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          alert("Error occured");
+          props.history.push("/promandashboard");
+        });
     }
   });
   return (
@@ -181,18 +148,17 @@ export default function Notifications(props) {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <div>
-              <h3>Project Analysis Data</h3>
+              <h3>Projects Details </h3>
               <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                   <tr>
                     <th>User ID</th>
                     <th>Project Name</th>
                     <th>Company Name</th>
-                    <th>Suggestions</th>
-                    <th>Cost</th>
+                    <th>Description</th>
+                    <th>Addsress</th>
                     <th>Budget</th>
-                    <th>Risk Factors</th>
-                    <th>Action</th>
+                    <th>File</th>
                   </tr>
                 </thead>
                 <tbody>{AllPlacesList(AllStatus)}</tbody>

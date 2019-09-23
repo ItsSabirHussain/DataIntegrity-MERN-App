@@ -12,6 +12,7 @@ const validateCEOLogin = require("../validation/ceologin");
 const CEO = require("../models/ceo");
 const Notification = require("../models/notifications");
 const ProjectAnalysis = require("../models/projectanalysis");
+const BidStatus = require("../models/bidstatus");
 
 // @route POST /adminregisteration
 // @desc Register user
@@ -151,6 +152,47 @@ router.post("/getanalysisdata", (req, res) => {
           Action: "None"
         });
       }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/getadata", (req, res) => {
+  ProjectAnalysis.findOne({ _id: req.body._id })
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
+      } else {
+        return res.json({
+          ID: "None",
+          ProjectName: "None",
+          CompanyName: "None",
+          Suggestions: "None",
+          Cost: "None",
+          Budget: "None",
+          RistFactor: "None",
+          Action: "None"
+        });
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/updatebidstatus", (req, res) => {
+  new BidStatus({
+    ID: req.body.ID,
+    ProjectName: req.body.ProjectName,
+    CompanyName: req.body.CompanyName,
+    Bid: req.body.Bid,
+    Reason: req.body.Reason,
+    Status: req.body.Status
+  })
+    .save()
+    .then(r => {
+      res.json({ message: "Done" });
     })
     .catch(err => {
       res.json({ message: "Error" });
