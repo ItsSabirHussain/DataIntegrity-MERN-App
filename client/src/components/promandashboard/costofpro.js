@@ -134,14 +134,11 @@ export default function CostOfPro() {
   const classes2 = useStyles2();
   const classes3 = useStyles3();
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
-          {/* Chart */}
           <Grid item xs={12} md={8} lg={9}>
             <Container component="main" className={classes.main} maxWidth="sm">
               <CardContent>

@@ -140,9 +140,7 @@ export default function Main() {
                 <p className="lead">{proman.OfficeID}</p>
                 <hr className="my-2" />
                 <p></p>
-                <p className="lead">
-                  <Button color="primary">Notifications</Button>
-                </p>
+                <p className="lead"></p>
               </Jumbotron>
             </div>
           </Grid>

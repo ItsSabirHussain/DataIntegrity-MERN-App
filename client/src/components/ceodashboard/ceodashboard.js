@@ -33,6 +33,7 @@ import Main from "./main";
 import ModifyProjectData from "./mondifyprojectdata";
 import ProjectAnalysis from "./projectanalysis";
 import AddBid from "./addbid";
+import Notifications from "./notifications";
 
 const drawerWidth = 240;
 
@@ -242,6 +243,11 @@ export default function CEODashboard(props) {
           exact
           path="/ceodashboard/projectanalysis"
           component={ProjectAnalysis}
+        />
+        <Route
+          exact
+          path="/ceodashboard/notifications"
+          component={Notifications}
         />
         <Route exact path="/ceodashboard/addbid" component={AddBid} />
       </Switch>

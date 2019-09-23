@@ -148,12 +148,10 @@ export default function Main(props) {
             <div>
               <Jumbotron>
                 <h1 className="display-6">Name : {cuser.FullName}</h1>
-                <p className="lead">{cuser.Email}</p>
+                <p className="lead">Email: {cuser.Email}</p>
                 <hr className="my-2" />
                 <p></p>
-                <p className="lead">
-                  <Button color="primary">Notifications</Button>
-                </p>
+                <p className="lead"></p>
               </Jumbotron>
             </div>
           </Grid>

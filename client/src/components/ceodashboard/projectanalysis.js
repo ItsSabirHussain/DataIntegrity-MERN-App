@@ -1,27 +1,29 @@
-import React from "react";
-import clsx from "clsx";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
+import axios from "axios";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      Your Website and Your Name Here.
+      <Link to="/">Complex Bid Module Integration</Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
   );
 }
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
+  submit: {
+    margin: theme.spacing(1, 1, 1)
+  },
   root: {
     display: "flex"
   },
@@ -100,17 +102,61 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ProjectAnalysis() {
+export default function Notifications(props) {
+  function AllPlacesList(p) {
+    return p.map(function(cdata, i) {
+      return <Data data={cdata} key={i} />;
+    });
+  }
+  const Data = p => (
+    <tr>
+      <td>{p.data.ID}</td>
+      <td>{p.data.ProjectName}</td>
+      <td>{p.data.CompanyName}</td>
+      <td>{p.data.Suggestion}</td>
+      <td>{p.data.Cost}</td>
+      <td>{p.data.Budget}</td>
+      <td>{p.data.RiskFactor}</td>
+      <td>{p.data.RiskFactors}</td>
+    </tr>
+  );
+
+  const [AllStatus, setAllStatus] = useState([]);
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  useEffect(() => {
+    if (AllStatus.length < 1) {
+      axios
+        .post("/getanalysisdata", {})
+        .then(res => {
+          setAllStatus(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+  });
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
-          {/* User Details */}
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>Project Analysis</Paper>
+          <Grid item xs={12}>
+            <div>
+              <h3>Project Analysis Data</h3>
+              <table className="table table-striped" style={{ marginTop: 20 }}>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Project Name</th>
+                    <th>Company Name</th>
+                    <th>Suggestions</th>
+                    <th>Cost</th>
+                    <th>Budget</th>
+                    <th>Risk Factors</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>{AllPlacesList(AllStatus)}</tbody>
+              </table>
+            </div>
           </Grid>
         </Grid>
       </Container>

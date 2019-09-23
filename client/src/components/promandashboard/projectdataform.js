@@ -55,18 +55,21 @@ export default function ProjectDataForm(props) {
   const [proInfo, setProInfo] = useState({
     ProjectName: "",
     ID: "",
-    Suggestion: ""
+    Suggestion: "",
+    Cost: "",
+    RiskFactor: "",
+    CompanyName: ""
   });
 
   const onClick = e => {
     e.preventDefault();
     axios
-      .post("/uploadprodata", proInfo)
+      .post("/uploadanalysisdata", proInfo)
       .then(res => {
-        props.history.push("/promandashboard/uploadprodata");
+        alert("Added please do another one.");
       })
       .catch(error => {
-        console.log(error);
+        alert(error);
       });
   };
 
@@ -75,7 +78,7 @@ export default function ProjectDataForm(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Upload Project Data
+          Analysis Data
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -90,6 +93,20 @@ export default function ProjectDataForm(props) {
                 autoFocus
                 onChange={e =>
                   setProInfo({ ...proInfo, ProjectName: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                name="projectname"
+                variant="outlined"
+                required
+                fullWidth
+                id="project name"
+                label="Company Name"
+                autoFocus
+                onChange={e =>
+                  setProInfo({ ...proInfo, CompanyName: e.target.value })
                 }
               />
             </Grid>
@@ -116,6 +133,34 @@ export default function ProjectDataForm(props) {
                 autoComplete="suggestion"
                 onChange={e =>
                   setProInfo({ ...proInfo, Suggestion: e.target.value })
+                }
+              />
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="suggestion"
+                  label="Cost"
+                  name="suggestion"
+                  autoComplete="suggestion"
+                  onChange={e =>
+                    setProInfo({ ...proInfo, Cost: e.target.value })
+                  }
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="suggestion"
+                label="Risk Factor"
+                name="suggestion"
+                autoComplete="suggestion"
+                onChange={e =>
+                  setProInfo({ ...proInfo, RiskFactor: e.target.value })
                 }
               />
             </Grid>

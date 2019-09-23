@@ -5,12 +5,14 @@ const Notifications = new Schema({
   ID: {
     type: String
   },
-  Role: {
+  CompanyName: {
+    type: String
+  },
+  ProjectName: {
     type: String
   },
   Content: {
-    type: String,
-    required: true
+    type: String
   }
 });
 module.exports = User = mongoose.model("Notifications", Notifications);

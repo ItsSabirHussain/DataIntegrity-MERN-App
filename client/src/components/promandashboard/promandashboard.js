@@ -32,6 +32,9 @@ import CostOfPro from "./costofpro";
 import ClientsReq from "./clientsreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Jumbotron } from "react-bootstrap";
+import Notifications from "./notifications";
+import Projects from "./projects";
+import Updations from "./updations";
 
 const drawerWidth = 240;
 
@@ -206,19 +209,29 @@ export default function ProManDashboard(props) {
                 <NotificationImportantIcon fontSize="large" />
               </ListItemIcon>
 
-              <ListItemText primary="Upload Project Data" />
+              <ListItemText primary="Analysis Data" />
             </ListItem>
-            <ListItem button component={Link} to="/promandashboard/costofpro">
+            <ListItem
+              button
+              component={Link}
+              to="/promandashboard/notifications"
+            >
               <ListItemIcon>
                 <PeopleIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Cost of Project" />
+              <ListItemText primary="Notifications" />
             </ListItem>
-            <ListItem button component={Link} to="/promandashboard/clientreq">
+            <ListItem button component={Link} to="/promandashboard/projects">
+              <ListItemIcon>
+                <PeopleIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Projects" />
+            </ListItem>
+            <ListItem button component={Link} to="/promandashboard/updation">
               <ListItemIcon>
                 <PermIdentityIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Client Req." />
+              <ListItemText primary="Updations" />
             </ListItem>
           </div>
         </List>
@@ -232,8 +245,20 @@ export default function ProManDashboard(props) {
           path="/promandashboard/uploadprodata"
           component={UploadProData}
         />
-        <Route exact path="/promandashboard/costofpro" component={CostOfPro} />
+        <Route
+          exact
+          path="/promandashboard/analysisdata"
+          component={CostOfPro}
+        />
         <Route exact path="/promandashboard/clientreq" component={ClientsReq} />
+        <Route exact path="/promandashboard/projects" component={Projects} />
+
+        <Route
+          exact
+          path="/promandashboard/notifications"
+          component={Notifications}
+        />
+        <Route exact path="/promandashboard/updation" component={Updations} />
       </Switch>
     </div>
   );

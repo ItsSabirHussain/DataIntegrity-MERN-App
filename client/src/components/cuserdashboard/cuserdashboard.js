@@ -33,6 +33,7 @@ import UploadProReq from "./uploadproreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import UploadForm from "./UploadForm";
+import Modifications from "./modifications";
 
 const drawerWidth = 240;
 
@@ -197,7 +198,7 @@ export default function CUserDashboard(props) {
               <ListItemIcon>
                 <DashboardIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText>Dashboard</ListItemText>
+              <ListItemText primary="Dashboard" />
             </ListItem>
             <ListItem
               button
@@ -216,17 +217,15 @@ export default function CUserDashboard(props) {
               </ListItemIcon>
               <ListItemText primary="Project Bid Status" />
             </ListItem>
-            <ListItem button component={Link} to="/cuserdashboard/uploadproreq">
+            <ListItem
+              button
+              component={Link}
+              to="/cuserdashboard/modifications"
+            >
               <ListItemIcon>
                 <PermIdentityIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Upload Pro. Req." />
-            </ListItem>
-            <ListItem button component={Link} to="/cuserdashboard/rate">
-              <ListItemIcon>
-                <HighlightOffIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Rate" />
+              <ListItemText primary="Modifications" />
             </ListItem>
           </div>
         </List>
@@ -247,10 +246,9 @@ export default function CUserDashboard(props) {
         />
         <Route
           exact
-          path="/cuserdashboard/uploadproreq"
-          component={UploadProReq}
+          path="/cuserdashboard/modifications"
+          component={Modifications}
         />
-        <Route exact path="/cuserdashboard/rate" component={Rate} />
       </Switch>
     </div>
   );

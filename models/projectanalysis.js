@@ -5,12 +5,23 @@ const ProjectAnalysis = new Schema({
   ProjectName: {
     type: String
   },
+  CompanyName: {
+    type: String
+  },
+  Budget: {
+    type: String
+  },
   ID: {
     type: String
   },
-  Content: {
-    type: String,
-    required: true
+  Suggestion: {
+    type: String
+  },
+  Cost: {
+    type: String
+  },
+  RiskFactor: {
+    type: String
   }
 });
 module.exports = User = mongoose.model("ProjectAnalysis", ProjectAnalysis);

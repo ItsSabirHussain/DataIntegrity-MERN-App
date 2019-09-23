@@ -10,6 +10,8 @@ const validateCEOLogin = require("../validation/ceologin");
 
 // Load User model
 const CEO = require("../models/ceo");
+const Notification = require("../models/notifications");
+const ProjectAnalysis = require("../models/projectanalysis");
 
 // @route POST /adminregisteration
 // @desc Register user
@@ -111,6 +113,48 @@ router.post("/getceo", (req, res) => {
     }
     return res.json(user);
   });
+});
+
+router.post("/getcnotifications", (req, res) => {
+  Notification.find()
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
+      } else {
+        return res.json({
+          ID: "None",
+          ProjectName: "None",
+          CompanyName: "None",
+          Content: "None"
+        });
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/getanalysisdata", (req, res) => {
+  ProjectAnalysis.find()
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
+      } else {
+        return res.json({
+          ID: "None",
+          ProjectName: "None",
+          CompanyName: "None",
+          Suggestions: "None",
+          Cost: "None",
+          Budget: "None",
+          RistFactor: "None",
+          Action: "None"
+        });
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
 });
 
 module.exports = router;

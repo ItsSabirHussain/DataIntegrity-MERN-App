@@ -1,29 +1,29 @@
-import React from "react";
-import clsx from "clsx";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
-import { CardContent, CardActions, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
+import axios from "axios";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
+      <Link to="/">Complex Bid Module Integration</Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
   );
 }
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
+  submit: {
+    margin: theme.spacing(1, 1, 1)
+  },
   root: {
     display: "flex"
   },
@@ -102,66 +102,105 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const useStyles2 = makeStyles({
-  card: {
-    minWidth: 275
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
+export default function AllPlacesList(props) {
+  function AllPlacesList(p) {
+    return p.map(function(cdata, i) {
+      return <Data data={cdata} key={i} />;
+    });
   }
-});
+  const Data = p => (
+    <tr>
+      <td>{p.data.ProjectName}</td>
+      <td>{p.data.CompanyName}</td>
+      <td>{p.data.Bid}</td>
+      <td>{p.data.Reason}</td>
 
-const useStyles3 = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1)
-  },
-  input: {
-    display: "none"
-  }
-}));
+      <td>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          name={p.data.ID}
+          className={classes.submit}
+          onClick={e => {
+            axios
+              .post("/addnotification", {
+                ID: localStorage.getItem("cuserID"),
+                CompanyName: p.data.CompanyName,
+                ProjectName: p.data.ProjectName,
+                Content: "Bid Accept by user."
+              })
+              .then(res => {
+                alert("Thank u so much for you concern.");
+                props.history.push("/cuserdashboard");
+                setAllStatus(res.data);
+              })
+              .catch(error => console.log(error));
+          }}
+        >
+          Accept
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          name={p.data.ID}
+          className={classes.submit}
+          onClick={e => {
+            axios
+              .post("/addnotification", {
+                ID: localStorage.getItem("cuserID"),
+                CompanyName: p.data.CompanyName,
+                ProjectName: p.data.ProjectName,
+                Content: "Bid Rejected by user."
+              })
+              .then(res => {
+                alert("Thank u so much for you concern.");
+                props.history.push("/cuserdashboard");
+                setAllStatus(res.data);
+              })
+              .catch(error => console.log(error));
+          }}
+        >
+          Reject
+        </Button>
+      </td>
+    </tr>
+  );
 
-export default function ProBidStatus() {
+  const [AllStatus, setAllStatus] = useState([]);
   const classes = useStyles();
-  const classes2 = useStyles2();
-  const classes3 = useStyles3();
-
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  useEffect(() => {
+    if (AllStatus.length < 1) {
+      axios
+        .post("/getbidstatus", {})
+        .then(res => {
+          setAllStatus(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+  });
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
-          {/* Chart */}
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>
-              <Container
-                component="main"
-                className={classes.main}
-                maxWidth="sm"
-              >
-                <CardContent>
-                  <Typography
-                    className={classes2.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Project Bid Status
-                    <br />
-                    {'"Welcome Here"'}
-                  </Typography>
-                </CardContent>
-                <CardActions></CardActions>
-              </Container>
-            </Paper>
+          <Grid item xs={12}>
+            <div>
+              <h3>Project Bid Status</h3>
+              <table className="table table-striped" style={{ marginTop: 20 }}>
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Project Name</th>
+                    <th>Bid</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>{AllPlacesList(AllStatus)}</tbody>
+              </table>
+            </div>
           </Grid>
         </Grid>
       </Container>

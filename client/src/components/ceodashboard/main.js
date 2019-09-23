@@ -104,7 +104,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function CEOMain() {
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [ceo, setCeo] = React.useState({
     FullName: "",
     OfficeID: ""

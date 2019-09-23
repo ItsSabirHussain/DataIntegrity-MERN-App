@@ -12,6 +12,9 @@ const validateProManLogin = require("../validation/promanlogin");
 const ProMan = require("../models/proman");
 const ProjectAnalysis = require("../models/projectanalysis");
 const ProCost = require("../models/procost");
+const Notification = require("../models/notifications");
+const ProjectInfo = require("../models/projectinfo");
+const Modifications = require("../models/modications");
 
 // @route POST /adminregisteration
 // @desc Register user
@@ -112,18 +115,32 @@ router.post("/getproman", (req, res) => {
   });
 });
 
-router.post("/uploadprodata", (req, res) => {
-  ProjectAnalysis.findOne({ ID: req.body.ID }).then(proman => {
-    if (proman) {
-      return res.status(400).json({ ID: "ID already exists" });
-    } else {
-      const newData = new ProjectAnalysis({
-        ProjectName: req.body.ProjectName,
-        ID: req.body.ID,
-        Content: req.body.Suggetion
+router.post("/uploadanalysisdata", (req, res) => {
+  ProjectInfo.findOne({
+    ID: req.body.ID,
+    ProjectName: req.body.ProjectName
+  }).then(ff => {
+    console.log(ff);
+    const newData = new ProjectAnalysis({
+      ProjectName: req.body.ProjectName,
+      ID: req.body.ID,
+      Suggestion: req.body.Suggestion,
+      Cost: req.body.Cost,
+      RiskFactor: req.body.RiskFactor,
+      CompanyName: req.body.CompanyName,
+      Budget: ff.Budget
+    });
+    newData
+      .save()
+      .then(s => {
+        console.log(s);
+
+        res.json({ message: "Succeded" });
+      })
+      .catch(err => {
+        console.log(err);
+        res.json({ message: err });
       });
-      newData.save();
-    }
   });
 });
 
@@ -143,13 +160,78 @@ router.post("/uploadprocost", (req, res) => {
 });
 
 router.post("/getcreq", (req, res) => {
-  console.log("THre");
   ProMan.find({}, { _id: false }).then(user => {
     if (!user) {
       return res.status(404).json({ IDNotFound: "ID not found" });
     }
     return res.json(user);
   });
+});
+
+router.post("/getnotifications", (req, res) => {
+  Notification.find()
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
+      } else {
+        return res.json({
+          ID: "None",
+          ProjectName: "None",
+          CompanyName: "None",
+          Content: "None"
+        });
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+router.post("/getprojects", (req, res) => {
+  ProjectInfo.find()
+    .then(projects => {
+      console.log("There");
+      if (projects) {
+        return res.json(projects);
+      } else {
+        return res.json([
+          {
+            CompanyName: "None",
+            ProjectName: "None",
+            ProjectDescription: "None",
+            City: "None",
+            State: "None",
+            Date: "None",
+            Budget: "None",
+            Zip: "None",
+            Country: "None",
+            ID: "None"
+          }
+        ]);
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/getmodifications", (req, res) => {
+  Modifications.find()
+    .then(updations => {
+      if (updations) {
+        return res.json(updations);
+      } else {
+        return res.json([
+          {
+            CompanyName: "None",
+            ProjectName: "None",
+            Updations: "None"
+          }
+        ]);
+      }
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
 });
 
 module.exports = router;

@@ -4,24 +4,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 
-// Load input validation
-const validateCUserRegistration = require("../validation/cuserreg");
-const validateCUserLogin = require("../validation/cuserlogin");
-
-// Load User model
 const CUser = require("../models/cuser");
 const Notifications = require("../models/notifications");
+const Modifications = require("../models/modications");
+const ProjectInfo = require("../models/projectinfo");
 
-// @route POST /userregistration
-// @desc Register user
-// @access Public
 router.post("/cuserreg", (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateCUserRegistration(req.body);
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
   CUser.findOne({ ID: req.body.ID }).then(user => {
     if (user) {
       return res.status(400).json({ ID: "ID already exists" });
@@ -32,7 +20,6 @@ router.post("/cuserreg", (req, res) => {
         ID: req.body.ID,
         Key: req.body.Key
       });
-      // Hash key before saving in database
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newCUser.Key, salt, (err, hash) => {
           console.log(err);
@@ -48,34 +35,19 @@ router.post("/cuserreg", (req, res) => {
   });
 });
 
-// @route POST /userlogin
-// @desc Login user and return JWT token
-// @access Public
 router.post("/cuserlogin", (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateCUserLogin(req.body);
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
   const ID = req.body.ID;
   const Key = req.body.Key;
-  // Find user by id
   CUser.findOne({ ID: req.body.ID }).then(user => {
-    // Check if user exists
     if (!user) {
       return res.status(404).json({ IDNotFound: "ID not found" });
     }
-    // Check password
     bcrypt.compare(Key, user.Key).then(isMatch => {
       if (isMatch) {
-        // User matched
-        // Create JWT Payload
         const payload = {
           id: user.id,
           ID: user.ID
         };
-        // Sign token
         jwt.sign(
           payload,
           keys.secretOrKey,
@@ -89,7 +61,7 @@ router.post("/cuserlogin", (req, res) => {
             });
           }
         );
-        const newNotification = new Notifications({
+        new Notifications({
           ID: req.body.ID,
           Role: "CUser",
           Content: req.body.ID + " is loged in."
@@ -113,4 +85,73 @@ router.post("/getcuser", (req, res) => {
   });
 });
 
+router.post("/modifications", (req, res) => {
+  const ID = req.body.ID;
+  new Modifications({
+    ID: req.body.ID,
+    ProjectName: req.body.ProjectName,
+    Updations: req.body.Updations
+  })
+    .save()
+    .then(err => {
+      new Notifications({
+        ID: req.body.ID,
+        CompanyName: req.body.CompanyName,
+        ProjectName: req.body.ProjectName,
+        Content: "Modifications added."
+      }).save();
+      res.json({ message: "Succeed" });
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/uploadproject", (req, res) => {
+  console.log(req.body);
+  new ProjectInfo({
+    CompanyName: req.body.CompanyName,
+    ProjectName: req.body.ProjectName,
+    ProjectDescription: req.body.ProjectDesc,
+    City: req.body.City,
+    State: req.body.State,
+    Date: req.body.Date,
+    Budget: req.body.Budget,
+    Zip: req.body.Zip,
+    Country: req.body.Country,
+    ID: req.body.ID
+  })
+
+    .save()
+    .then(err => {
+      new Notifications({
+        ID: req.body.ID,
+        CompanyName: req.body.CompanyName,
+        ProjectName: req.body.ProjectName,
+        Content: "New Project Uploaded."
+      }).save();
+      res.json({ message: "Succeed" });
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/addnotification", (req, res) => {
+  new Notifications({
+    ID: req.body.ID,
+    CompanyName: req.body.CompanyName,
+    ProjectName: req.body.ProjectName,
+    Content: req.body.Content
+  })
+    .save()
+    .then(r => {
+      res.json({ message: "OK" });
+    })
+    .catch(err => {
+      res.json({ message: "Error" });
+    });
+});
+
+router.post("/getbidstatus", (req, res) => {});
 module.exports = router;
