@@ -26,14 +26,11 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import Main from "./cusermain";
-import ProBidStatus from "./probidstatus";
-import UploadProject from "./uploadProject";
-import Rate from "./rate";
-import UploadProReq from "./uploadproreq";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PublishIcon from "@material-ui/icons/Publish";
-import UploadForm from "./UploadForm";
-import Modifications from "./modifications";
+import Update from "./update";
+import Notifications from "./notifications";
+import SearchByID from "./serachbyid";
 
 const drawerWidth = 240;
 
@@ -200,32 +197,28 @@ export default function CUserDashboard(props) {
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to="/cuserdashboard/uploadproject"
-            >
+            <ListItem button component={Link} to="/cuserdashboard/update">
               <ListItemIcon>
                 <PublishIcon fontSize="large" />
               </ListItemIcon>
 
-              <ListItemText primary="Upload Project" />
-            </ListItem>
-            <ListItem button component={Link} to="/cuserdashboard/probidstatus">
-              <ListItemIcon>
-                <PeopleIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Project Bid Status" />
+              <ListItemText primary="Update Data" />
             </ListItem>
             <ListItem
               button
               component={Link}
-              to="/cuserdashboard/modifications"
+              to="/cuserdashboard/notifications"
             >
+              <ListItemIcon>
+                <PeopleIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Notifications" />
+            </ListItem>
+            <ListItem button component={Link} to="/cuserdashboard/Searchbyid">
               <ListItemIcon>
                 <PermIdentityIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Modifications" />
+              <ListItemText primary="Search BY ID" />
             </ListItem>
           </div>
         </List>
@@ -234,21 +227,13 @@ export default function CUserDashboard(props) {
 
       <Switch>
         <Route exact path="/cuserdashboard" component={Main} />
+        <Route exact path="/cuserdashboard/update" component={Update} />
         <Route
           exact
-          path="/cuserdashboard/uploadproject"
-          component={UploadForm}
+          path="/cuserdashboard/notifications"
+          component={Notifications}
         />
-        <Route
-          exact
-          path="/cuserdashboard/probidstatus"
-          component={ProBidStatus}
-        />
-        <Route
-          exact
-          path="/cuserdashboard/modifications"
-          component={Modifications}
-        />
+        <Route exact path="/cuserdashboard/searchbyid" component={SearchByID} />
       </Switch>
     </div>
   );

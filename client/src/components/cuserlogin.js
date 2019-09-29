@@ -19,7 +19,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link to="/" style={{ textDecoration: "none" }}>
-        Complex Bid Module Integration{" "}
+        {" "}
       </Link>
       {new Date().getFullYear()}
       {"."}
@@ -60,6 +60,8 @@ export default function CUserLogin(props) {
     axios
       .post("/cuserlogin", userInfo)
       .then(res => {
+        localStorage.setItem("_id", res.data._id);
+
         localStorage.setItem("cuserTokken", res.data.token);
         localStorage.setItem("cuserID", userInfo.ID);
         console.log(res);
@@ -75,7 +77,7 @@ export default function CUserLogin(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Client User Sign in
+          User Sign in
         </Typography>
         <form className={classes.form} noValidate>
           <TextField

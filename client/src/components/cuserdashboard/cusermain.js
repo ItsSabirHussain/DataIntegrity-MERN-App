@@ -119,7 +119,8 @@ export default function Main(props) {
   const classes = useStyles();
   const [cuser, setCuser] = React.useState({
     FullName: "",
-    Email: ""
+    Email: "",
+    _id: ""
   });
 
   useEffect(() => {
@@ -130,7 +131,8 @@ export default function Main(props) {
           console.log(res);
           setCuser({
             Email: res.data.Email,
-            FullName: res.data.FullName
+            FullName: res.data.FullName,
+            _id: res.data._id
           });
           console.log(res);
         })
@@ -147,6 +149,7 @@ export default function Main(props) {
           <Grid item xs={12} md={8} lg={9}>
             <div>
               <Jumbotron>
+                <h1 className="display-6">Uinique ID : {cuser._id}</h1>
                 <h1 className="display-6">Name : {cuser.FullName}</h1>
                 <p className="lead">Email: {cuser.Email}</p>
                 <hr className="my-2" />

@@ -9,12 +9,22 @@ const CUser = new Schema({
     type: String
   },
   ID: {
-    type: String,
-    required: true
+    type: String
   },
   Key: {
-    type: String,
-    required: true
+    type: String
+  },
+  Address: {
+    type: String
+  },
+  Phone: {
+    type: String
+  },
+  Company: {
+    type: String
+  },
+  Nationality: {
+    type: String
   }
 });
 module.exports = User = mongoose.model("CUser", CUser);

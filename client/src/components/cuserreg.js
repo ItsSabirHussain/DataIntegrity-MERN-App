@@ -56,7 +56,11 @@ export default function CUserReg(props) {
     FullName: "",
     ID: "",
     Email: "",
-    Key: ""
+    Key: "",
+    Address: "",
+    Phone: "",
+    Company: "",
+    Nationality: ""
   });
 
   const onClick = e => {
@@ -121,6 +125,62 @@ export default function CUserReg(props) {
                 autoComplete="email"
                 onChange={e =>
                   setUserInfo({ ...userInfo, Email: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="ID"
+                label="Address"
+                name="Address"
+                autoComplete="Address"
+                onChange={e =>
+                  setUserInfo({ ...userInfo, Address: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="ID"
+                label="Phone"
+                name="Address"
+                autoComplete="Address"
+                onChange={e =>
+                  setUserInfo({ ...userInfo, Phone: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="ID"
+                label="Company Name"
+                name="Address"
+                autoComplete="Address"
+                onChange={e =>
+                  setUserInfo({ ...userInfo, Company: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="ID"
+                label="Nationality"
+                name="Address"
+                autoComplete="Address"
+                onChange={e =>
+                  setUserInfo({ ...userInfo, Nationality: e.target.value })
                 }
               />
             </Grid>

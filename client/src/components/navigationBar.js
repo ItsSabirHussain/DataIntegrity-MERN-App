@@ -28,22 +28,17 @@ export const NavigationBar = () => (
         <Nav className="ml-auto">
           <Nav.Item>
             <Nav.Link>
-              <Link to="/promanlogin">Project Manager</Link>
+              <Link to="/promanlogin">Admin</Link>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link>
-              <Link to="/ceologin">CEO</Link>
+              <Link to="/ceologin">Employee</Link>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link>
-              <Link to="/docdesmanlogin">Docs Design Manager</Link>
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link>
-              <Link to="/cuserlogin">Client User</Link>
+              <Link to="/cuserlogin">User</Link>
             </Nav.Link>
           </Nav.Item>
         </Nav>

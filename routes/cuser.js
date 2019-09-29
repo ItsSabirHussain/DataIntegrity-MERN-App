@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 
 const CUser = require("../models/cuser");
-const Notifications = require("../models/notifications");
-const Modifications = require("../models/modications");
-const ProjectInfo = require("../models/projectinfo");
-const BidStatus = require("../models/bidstatus");
+const ANotifications = require("../models/anotifications");
+const UNotifications = require("../models/unotifications");
 
 router.post("/cuserreg", (req, res) => {
+  new ANotifications({
+    Date: new Date(),
+    Content: "New User Registered."
+  }).save();
+
   CUser.findOne({ ID: req.body.ID }).then(user => {
     if (user) {
       return res.status(400).json({ ID: "ID already exists" });
@@ -19,19 +21,16 @@ router.post("/cuserreg", (req, res) => {
         FullName: req.body.FullName,
         Email: req.body.Email,
         ID: req.body.ID,
-        Key: req.body.Key
+        Key: req.body.Key,
+        Address: req.body.Address,
+        Phone: req.body.Phone,
+        Company: req.body.Company,
+        Nationality: req.body.Nationality
       });
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newCUser.Key, salt, (err, hash) => {
-          console.log(err);
-          if (err) throw err;
-          newCUser.Key = hash;
-          newCUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
-      });
+      newCUser
+        .save()
+        .then(user => res.json(user))
+        .catch(err => console.log(err));
     }
   });
 });
@@ -43,42 +42,38 @@ router.post("/cuserlogin", (req, res) => {
     if (!user) {
       return res.status(404).json({ IDNotFound: "ID not found" });
     }
-    bcrypt.compare(Key, user.Key).then(isMatch => {
-      if (isMatch) {
-        const payload = {
-          id: user.id,
-          ID: user.ID
-        };
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          {
-            expiresIn: 31556926 // 1 year in seconds
-          },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
-        new Notifications({
-          ID: req.body.ID,
-          Role: "CUser",
-          Content: req.body.ID + " is loged in."
-        }).save();
-      } else {
-        return res.status(400).json({ keyincorrect: "Key incorrect" });
-      }
-    });
+    if (req.body.Key === user.Key) {
+      const payload = {
+        id: user.id,
+        ID: user.ID
+      };
+      jwt.sign(
+        payload,
+        keys.secretOrKey,
+        {
+          expiresIn: 31556926 // 1 year in seconds
+        },
+        (err, token) => {
+          res.json({
+            success: true,
+            _id: user._id,
+            token: "Bearer " + token
+          });
+        }
+      );
+      new Notifications({
+        ID: req.body.ID,
+        Role: "CUser",
+        Content: req.body.ID + " is loged in."
+      }).save();
+    } else {
+      return res.status(400).json({ keyincorrect: "Key incorrect" });
+    }
   });
 });
 
 router.post("/getcuser", (req, res) => {
-  const ID = req.body.ID;
-  console.log(ID);
-
-  CUser.findOne({ ID: req.body.ID }).then(user => {
+  CUser.findOne({ _id: req.body._id }).then(user => {
     if (!user) {
       return res.status(404).json({ IDNotFound: "ID not found" });
     }
@@ -86,87 +81,71 @@ router.post("/getcuser", (req, res) => {
   });
 });
 
-router.post("/modifications", (req, res) => {
-  const ID = req.body.ID;
-  new Modifications({
-    ID: req.body.ID,
-    ProjectName: req.body.ProjectName,
-    Updations: req.body.Updations
-  })
-    .save()
-    .then(err => {
-      new Notifications({
-        ID: req.body.ID,
-        CompanyName: req.body.CompanyName,
-        ProjectName: req.body.ProjectName,
-        Content: "Modifications added."
-      }).save();
-      res.json({ message: "Succeed" });
+router.post("/searchbyid", (req, res) => {
+  CUser.findOne({ _id: req.body._id }).then(user => {
+    if (!user) {
+      return res.status(404).json({ IDNotFound: "ID not found" });
+    }
+    return res.json(user);
+  });
+});
+
+router.post("/searchbyname", (req, res) => {
+  Notification.find({ FullName: req.body.FullName })
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
+      } else {
+        return res.json({
+          FullName: "",
+          Email: "",
+          ID: "",
+          Key: "",
+          Address: "",
+          Phone: "",
+          Company: "",
+          Nationality: ""
+        });
+      }
     })
     .catch(err => {
       res.json({ message: "Error" });
     });
 });
 
-router.post("/uploadproject", (req, res) => {
-  console.log(req.body);
-  new ProjectInfo({
-    CompanyName: req.body.CompanyName,
-    ProjectName: req.body.ProjectName,
-    ProjectDescription: req.body.ProjectDesc,
-    City: req.body.City,
-    State: req.body.State,
-    Date: req.body.Date,
-    Budget: req.body.Budget,
-    Zip: req.body.Zip,
-    Country: req.body.Country,
-    ID: req.body.ID
-  })
-
-    .save()
-    .then(err => {
-      new Notifications({
-        ID: req.body.ID,
-        CompanyName: req.body.CompanyName,
-        ProjectName: req.body.ProjectName,
-        Content: "New Project Uploaded."
-      }).save();
-      res.json({ message: "Succeed" });
+router.post("/getallusers", (req, res) => {
+  CUser.find()
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
+      } else {
+        return res.json({
+          FullName: "None",
+          Email: "None",
+          ID: "None",
+          Key: "None",
+          Address: "None",
+          Phone: "None",
+          Company: "None",
+          Nationality: "None"
+        });
+      }
     })
     .catch(err => {
       res.json({ message: "Error" });
     });
 });
 
-router.post("/addnotification", (req, res) => {
-  new Notifications({
-    ID: req.body.ID,
-    CompanyName: req.body.CompanyName,
-    ProjectName: req.body.ProjectName,
-    Content: req.body.Content
-  })
-    .save()
-    .then(r => {
-      res.json({ message: "OK" });
-    })
-    .catch(err => {
-      res.json({ message: "Error" });
-    });
-});
-
-router.post("/getbidstatus", (req, res) => {
-  BidStatus.find()
-    .then(projects => {
-      console.log("There");
-      if (projects) {
-        return res.json(projects);
+router.post("/getunoti", (req, res) => {
+  UNotifications.find()
+    .then(noti => {
+      if (noti) {
+        return res.json(noti);
       } else {
         return res.json([
           {
-            CompanyName: "None",
-            ProjectName: "None",
-            Bid: "None",
-            Reason: "None"
+            Date: "None",
+            Content: "None"
           }
         ]);
       }

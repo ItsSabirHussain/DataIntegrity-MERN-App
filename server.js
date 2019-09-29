@@ -5,10 +5,9 @@ const app = express();
 const passport = require("passport");
 const path = require("path");
 
-const ceo = require("./routes/ceo");
+const ceo = require("./routes/emp");
 const cuser = require("./routes/cuser");
-const docdesman = require("./routes/docdesman");
-const proman = require("./routes/proman");
+const proman = require("./routes/admin");
 const cors = require("cors");
 
 // Bodyparser middleware
@@ -31,16 +30,9 @@ mongoose
 // Passport middleware
 app.use(passport.initialize());
 
-// Passport config
-require("./config/cuserpassport")(passport);
-require("./config/ceopassport")(passport);
-require("./config/promanpassport")(passport);
-require("./config/docdesmanpassport")(passport);
-
 // Routes
 app.use("/", ceo);
 app.use("/", cuser);
-app.use("/", docdesman);
 app.use("/", proman);
 
 // For Heroku
