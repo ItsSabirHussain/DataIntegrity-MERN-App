@@ -59,6 +59,8 @@ export default function CEOLogin(props) {
   const onClick = e => {
     e.preventDefault();
     if (adminInfo.ID === "dummy" && adminInfo.Key === "dummy") {
+      localStorage.setItem("ceoToken", "dummy");
+      localStorage.setItem("ceoID", "dummy");
       props.history.push("/ceodashboard");
     }
   };
