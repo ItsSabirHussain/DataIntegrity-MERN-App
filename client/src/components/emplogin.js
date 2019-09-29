@@ -111,11 +111,6 @@ export default function CEOLogin(props) {
           >
             Sign In
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/cuserreg">Don't have an account? Sign up</Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={8}>

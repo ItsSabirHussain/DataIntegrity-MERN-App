@@ -117,8 +117,10 @@ export default function CUserLogin(props) {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item></Grid>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link to="/cuserreg">Don't have an account? Sign up</Link>
+            </Grid>
           </Grid>
         </form>
       </div>
