@@ -125,7 +125,7 @@ export default function CEODashboard(props) {
     setOpen(false);
   };
   useEffect(() => {
-    if (localStorage.getItem("ceoTokken")) {
+    if (localStorage.getItem("ceoToken")) {
       setCeo(localStorage.getItem("ceoID"));
     } else {
       props.history.push("/ceologin");
